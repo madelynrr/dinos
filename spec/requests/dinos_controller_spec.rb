@@ -4,6 +4,14 @@ RSpec.describe 'Dinos', type: :request do
     let(:valid_dino)   { create(:dino) }
     let(:invalid_dino) { build(:dino, age: nil) }
 
+      let(:valid_params) do
+    { dino: { name: 'Rex', age: 10, category: 'carnivore', period: 'Cretaceous', diet: 'meat' } }
+  end
+
+  let(:invalid_params) do
+    { dino: { name: nil, age: nil } }
+  end
+
     describe 'GET /dinos' do
         it 'returns http success' do
             get dinos_path
@@ -34,6 +42,37 @@ RSpec.describe 'Dinos', type: :request do
         it 'returns 404 for non-existent dino' do
             get dino_path(id: 99999)
             expect(response).to have_http_status(:not_found)
+        end
+    end
+
+    describe 'POST /dinos' do
+        context 'with valid params' do
+            it 'creates a new dino' do
+                expect {
+                    post dinos_path, params: valid_params
+                }.to change(Dino, :count).by(1)
+            end
+
+            it 'redirects to the new dino' do
+                post dinos_path, params: valid_params
+
+                expect(response).to redirect_to(dino_path(Dino.last))
+            end
+
+            it 'displays the dino name after redirect' do
+                post dinos_path, params: valid_params
+                follow_redirect!
+
+                expect(response.body).to include('Rex')
+            end
+        end
+
+        context 'with invalid params' do
+            it 'does not create a new dino' do
+                expect {
+                    post dinos_path, params: invalid_params
+                }.not_to change(Dino, :count)
+            end
         end
     end
 end
