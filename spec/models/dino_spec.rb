@@ -90,4 +90,18 @@ RSpec.describe Dino, type: :model do
             expect(dino.health).to eq(0)
         end
     end
+
+    describe '#set_comment' do
+        it 'returns Alive when health > 0' do
+            dino = build(:dino, age: 10)
+            dino.valid?
+            expect(dino.comment).to eq('Alive')
+        end
+
+        it 'returns Dead when health is 0' do
+            dino = build(:dino, age: 0)
+            dino.valid?
+            expect(dino.comment).to eq('Dead')
+        end
+    end
 end
