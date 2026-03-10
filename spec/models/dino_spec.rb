@@ -39,5 +39,34 @@ RSpec.describe Dino, type: :model do
                 expect(build(:dino, age: 100)).to be_valid
             end
         end
+
+        context 'enum validations' do
+            it { is_expected.to validate_inclusion_of(:category).in_array(%w[herbivore carnivore]) }
+            it { is_expected.to validate_inclusion_of(:period).in_array(%w[Cretaceous Jurassic]) }
+            it { is_expected.to validate_inclusion_of(:diet).in_array(%w[plants meat]) }
+        end
+    end
+
+    # before validation callback methods
+    describe "#update_dino_params" do
+        context 'when age is present' do
+            it 'sets health, comment, and age_metrics before validation' do
+                dino = build(:dino)
+                dino.valid?
+                expect(dino.health).to eq(90)
+                expect(dino.comment).to eq('Alive')
+                expect(dino.age_metrics).to eq(5)
+            end
+        end
+
+        context 'when age is nil' do
+            it 'does not run before_validation callback' do
+                dino = build(:dino, age: nil)
+                dino.valid?
+                expect(dino.health).to be_nil
+                expect(dino.comment).to be_nil
+                expect(dino.age_metrics).to be_nil
+            end
+        end
     end
 end
