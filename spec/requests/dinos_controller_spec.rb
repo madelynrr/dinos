@@ -95,4 +95,25 @@ RSpec.describe 'Dinos', type: :request do
             expect(response.body).not_to include('Little Foot')
         end
     end
+
+    describe 'DELETE /dinos/:id' do
+        it 'destroys the dino' do
+            dino = create(:dino)
+            expect {
+            delete dino_path(dino)
+            }.to change(Dino, :count).by(-1)
+        end
+
+        it 'redirects to dinos index' do
+            delete dino_path(valid_dino)
+            expect(response).to redirect_to(dinos_path)
+        end
+
+        it 'dino no longer appears on index after deletion' do
+            dino = create(:dino, name: 'Rex')
+            delete dino_path(dino)
+            follow_redirect!
+            expect(response.body).not_to include('Rex')
+        end
+    end
 end
