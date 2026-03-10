@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Dinos" %>
+
+<h1>Dinos</h1>
+
+<div>
+  <h2>Dino Summary:</h2>
+  <% @summary.each do |category, count| %>
+    <h3><%=" #{category.pluralize}: #{count}"%></h3>
+  <% end %>
+</div>
+
+<div id="dinos">
+  <% @dinos.each do |dino| %>
+    <%= render dino %>
+    <p>
+      <%= link_to "Show this dino", dino %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New dino", new_dino_path %>

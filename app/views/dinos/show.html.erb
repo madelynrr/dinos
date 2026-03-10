@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @dino %>
+
+<div>
+  <%= link_to "Edit this dino", edit_dino_path(@dino) %> |
+  <%= link_to "Back to dinos", dinos_path %>
+
+  <%= button_to "Destroy this dino", @dino, method: :delete %>
+</div>
