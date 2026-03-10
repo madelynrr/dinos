@@ -104,4 +104,30 @@ RSpec.describe Dino, type: :model do
             expect(dino.comment).to eq('Dead')
         end
     end
+
+    describe '#set_age_metrics' do
+        it 'returns age / 2 when alive and age > 1' do
+            dino = build(:dino, age: 10)
+            dino.valid?
+            expect(dino.age_metrics).to eq(5)
+        end
+
+        it 'returns 0 when dead (age 0)' do
+            dino = build(:dino, age: 0)
+            dino.valid?
+            expect(dino.age_metrics).to eq(0)
+        end
+
+        it 'returns 0 when age is 1' do
+            dino = build(:dino, age: 1)
+            dino.valid?
+            expect(dino.age_metrics).to eq(0)
+        end
+
+        it 'returns 0 when age equals AGE_PARAM (health is 0, dead)' do
+            dino = build(:dino, age: 100)
+            dino.valid?
+            expect(dino.age_metrics).to eq(0)
+        end
+    end
 end
