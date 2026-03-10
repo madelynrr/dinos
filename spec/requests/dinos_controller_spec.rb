@@ -19,4 +19,21 @@ RSpec.describe 'Dinos', type: :request do
             expect(response.body).to include('Trike')
         end
     end
+
+    describe 'GET /dinos/:id' do
+        it 'returns http success' do
+            get dino_path(valid_dino)
+            expect(response).to have_http_status(:success)
+        end
+
+        it 'displays the dino name on the page' do
+            get dino_path(valid_dino)
+            expect(response.body).to include(valid_dino.name)
+        end
+
+        it 'returns 404 for non-existent dino' do
+            get dino_path(id: 99999)
+            expect(response).to have_http_status(:not_found)
+        end
+    end
 end
