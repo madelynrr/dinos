@@ -4,6 +4,9 @@ class DinosController < ApplicationController
   # GET /dinos or /dinos.json
   def index
     @dinos = Dino.all
+
+    # Any more than two instance variables, and I would set up a presenter for this controller.
+    @summary = Dino.create_summary
   end
 
   # GET /dinos/1 or /dinos/1.json

@@ -1,4 +1,6 @@
 class Dino < ApplicationRecord
+    include Summarizable
+
     before_validation :update_dino_params
 
     validates :name, :health, :comment, :age_metrics, presence: true
