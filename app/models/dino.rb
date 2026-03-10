@@ -1,7 +1,9 @@
 class Dino < ApplicationRecord
     include Summarizable
 
-    before_validation :update_dino_params
+    before_validation :update_dino_params, if: -> { age.present? }
+
+    AGE_PARAM = 100
 
     validates :name, :health, :comment, :age_metrics, presence: true
     validates :age, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: AGE_PARAM }
@@ -11,7 +13,6 @@ class Dino < ApplicationRecord
     enum :diet, [:plants, :meat], validate: true
 
     # Though only used once, this type of number feels safer as a constant to me. If scaling, easier to update.
-    AGE_PARAM = 100
 
     private
 
