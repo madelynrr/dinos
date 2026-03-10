@@ -1,0 +1,11 @@
+<% content_for :title, "New dino" %>
+
+<h1>New dino</h1>
+
+<%= render "form", dino: @dino %>
+
+<br>
+
+<div>
+  <%= link_to "Back to dinos", dinos_path %>
+</div>
