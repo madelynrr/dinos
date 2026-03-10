@@ -75,4 +75,24 @@ RSpec.describe 'Dinos', type: :request do
             end
         end
     end
+
+    describe 'GET /dinos/:id/edit' do
+        it 'returns http success' do
+            get edit_dino_path(valid_dino)
+            expect(response).to have_http_status(:success)
+        end
+
+        it 'displays the dino name on the page' do
+            dino = create(:dino, name: 'Little Foot')
+
+            get edit_dino_path(dino)
+            expect(response.body).to include('Little Foot')
+
+            patch dino_path(dino), params: { dino: { name: 'Sarah' } }
+            follow_redirect!
+
+            expect(response.body).to include('Sarah')
+            expect(response.body).not_to include('Little Foot')
+        end
+    end
 end
