@@ -69,4 +69,25 @@ RSpec.describe Dino, type: :model do
             end
         end
     end
+
+    # MODEL METHODS
+    describe '#set_health' do
+        it 'returns AGE_PARAM minus age when age > 0' do
+            dino = build(:dino, age: 10)
+            dino.valid?
+            expect(dino.health).to eq(90)
+        end
+
+        it 'returns 0 when age is 0' do
+            dino = build(:dino, age: 0)
+            dino.valid?
+            expect(dino.health).to eq(0)
+        end
+
+        it 'returns 0 when age equals AGE_PARAM' do
+            dino = build(:dino, age: 100)
+            dino.valid?
+            expect(dino.health).to eq(0)
+        end
+    end
 end
