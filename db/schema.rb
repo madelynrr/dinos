@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_203412) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_230637) do
   create_table "dinos", force: :cascade do |t|
     t.integer "age", default: 0, null: false
-    t.integer "age_metrics", default: 0, null: false
+    t.integer "age_metrics", null: false
     t.integer "category", default: 0, null: false
-    t.string "comment", default: "Dead", null: false
+    t.string "comment", null: false
     t.datetime "created_at", null: false
     t.integer "diet", default: 0, null: false
-    t.integer "health", default: 0, null: false
+    t.integer "health", null: false
     t.string "name", null: false
     t.integer "period", default: 0, null: false
     t.datetime "updated_at", null: false
