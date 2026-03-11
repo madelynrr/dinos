@@ -8,9 +8,9 @@ class Dino < ApplicationRecord
     validates :name, :health, :comment, :age_metrics, presence: true
     validates :age, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: AGE_PARAM }
 
-    enum :category, [:herbivore, :carnivore], validate: true
-    enum :period, [:Cretaceous, :Jurassic], validate: true
-    enum :diet, [:plants, :meat], validate: true
+    enum :category, [ :herbivore, :carnivore ], validate: true
+    enum :period, [ :Cretaceous, :Jurassic ], validate: true
+    enum :diet, [ :plants, :meat ], validate: true
 
     # Though only used once, this type of number feels safer as a constant to me. If scaling, easier to update.
 
@@ -27,7 +27,7 @@ class Dino < ApplicationRecord
     end
 
     def set_comment(health)
-        health > 0 ? 'Alive' : 'Dead'
+        health > 0 ? "Alive" : "Dead"
     end
 
     def set_age_metrics(comment, age)
