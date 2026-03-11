@@ -1,5 +1,4 @@
 require "rails_helper"
-require_relative "../../../app/models/concerns/summarizable"
 
 RSpec.describe Summarizable, type: :model do
     describe '.create_summary' do
